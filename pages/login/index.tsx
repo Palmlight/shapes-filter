@@ -66,7 +66,7 @@ const LoginIndex = () => {
                 name="role"
                 id={role}
                 checked={loginData?.role === role}
-                onClick={() =>
+                onChange={() =>
                   setLoginData({ ...loginData, role: role as IRoles })
                 }
               />

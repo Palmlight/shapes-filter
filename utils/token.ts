@@ -11,7 +11,7 @@ export const getTokenFromStorage = (cookie?: string) => {
     if (cookie) {
       const rawCookie = cookie
         .split(";")
-        .find(c => c.trim().startsWith(`wyT=`));
+        .find(c => c.trim().startsWith(`theP=`));
       if (!rawCookie) return undefined;
       return rawCookie?.split("=")[1];
     }
@@ -19,9 +19,7 @@ export const getTokenFromStorage = (cookie?: string) => {
 };
 
 export const removeTokenFromStorage = () => {
-  if (process.browser) {
-    return Cookie.remove(constant.tokenName);
-  }
+  return Cookie.remove(constant.tokenName);
 };
 
 export const setTokenToStorage = (token: string) => {

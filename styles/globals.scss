@@ -69,3 +69,40 @@
     cursor: pointer;
   }
 }
+
+.global-inner-container {
+  width: 100%;
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+.global-layout {
+  width: 100%;
+  min-height: 100vh;
+  background: #fbfbfb;
+  position: relative;
+
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: white;
+    width: 100%;
+    box-shadow: 0px 4px 8px rgba(29, 29, 27, 0.08);
+
+    .nav-inner {
+      padding: 16px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .logout-btn {
+        border: 0;
+        background: none;
+        outline: none;
+        cursor: pointer;
+        color: tomato;
+      }
+    }
+  }
+}
