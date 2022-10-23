@@ -6,11 +6,10 @@ import {
   ShapesContext
 } from "../../context/ShapesContext";
 import { colors, shapes } from "../../utils/constants";
+import { getTokenFromStorage } from "../../utils/token";
 
 const ShapesIndex = () => {
   const { state, dispatch } = useContext(ShapesContext);
-
-  console.log(state.shapesData);
 
   return (
     <Layout>
@@ -67,7 +66,7 @@ const ShapesIndex = () => {
           <div className="shapes-grid-container">
             {state.shapesData?.map((dt, i) => (
               <div className="shapes-grid-item" key={i}>
-                <div className="inner-shape">{dt.color}</div>
+                <div className={`inner-shape ${dt.color} ${dt.shape}`} />
               </div>
             ))}
           </div>
@@ -77,13 +76,29 @@ const ShapesIndex = () => {
   );
 };
 
-// export const getServerSideProps: GetServerSideProps = async context => {
-//   console.log(SHAPESDATA);
-//   return {
-//     props: {
-//       data: SHAPESDATA
-//     }
-//   };
-// };
+export const getServerSideProps: GetServerSideProps = async context => {
+  const { req } = context;
+  const { cookie } = req.headers;
+
+  if (!getTokenFromStorage(cookie)) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/login"
+      }
+    };
+  } else if (getTokenFromStorage(cookie) === "admin") {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/admin"
+      }
+    };
+  } else {
+    return {
+      props: {}
+    };
+  }
+};
 
 export default ShapesIndex;

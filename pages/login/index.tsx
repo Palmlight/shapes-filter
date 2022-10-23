@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
@@ -27,6 +28,7 @@ const LoginIndex = () => {
       setTokenToStorage("user");
       router.push("/shapes");
     } else {
+      Cookies.set("email", loginData.email);
       setTokenToStorage("admin");
       router.push("/admin");
     }

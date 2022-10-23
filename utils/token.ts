@@ -18,6 +18,16 @@ export const getTokenFromStorage = (cookie?: string) => {
   }
 };
 
+export const getEmailFromStorage = (cookie?: string) => {
+  if (cookie) {
+    const rawCookie = cookie
+      .split(";")
+      .find(c => c.trim().startsWith(`email=`));
+    if (!rawCookie) return undefined;
+    return rawCookie?.split("=")[1];
+  }
+};
+
 export const removeTokenFromStorage = () => {
   return Cookie.remove(constant.tokenName);
 };
