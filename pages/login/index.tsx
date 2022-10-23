@@ -1,6 +1,7 @@
+import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-import { setTokenToStorage } from "../../utils/token";
+import { getTokenFromStorage, setTokenToStorage } from "../../utils/token";
 
 type IRoles = "user" | "admin";
 
@@ -85,6 +86,31 @@ const LoginIndex = () => {
       </form>
     </div>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async context => {
+  const { req } = context;
+  const { cookie } = req.headers;
+
+  if (getTokenFromStorage(cookie) === "user") {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/shapes"
+      }
+    };
+  } else if (getTokenFromStorage(cookie) === "admin") {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/admin"
+      }
+    };
+  } else {
+    return {
+      props: {}
+    };
+  }
 };
 
 export default LoginIndex;

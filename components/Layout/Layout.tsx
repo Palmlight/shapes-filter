@@ -5,7 +5,7 @@ const Layout = ({ children }: { children: ReactElement }) => {
   return (
     <section className="global-layout">
       <Navbar />
-      {children}
+      <main className="layout-children global-inner-container">{children}</main>
     </section>
   );
 };
